@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>John Juaquin G. Pugoy — Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Permanent+Marker&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --bg: #030303;
+            --bg-elevated: rgba(255, 255, 255, 0.04);
+            --border: rgba(255, 45, 149, 0.18);
+            --text: #f5f5f5;
+            --muted: #8a8a8a;
+            --pink: #ff2d95;
+            --pink-dim: rgba(255, 45, 149, 0.18);
+            --pink-glow: rgba(255, 45, 149, 0.45);
+            --yellow: #f5ff3d;
+            --yellow-dim: rgba(245, 255, 61, 0.15);
+            --grad: linear-gradient(90deg, var(--pink), #ff6eb4);
+            --grad-v: linear-gradient(180deg, var(--pink), var(--yellow));
+            --radius: 4px;
+            --radius-lg: 8px;
+            --dock-h: 52px;
+            --max: 1180px;
+
+            /* ═══════════════════════════════════════════════════════
+               COLLAGE ART — change these to use your own pictures
+               Put files in an "images" folder next to index.html
+               Use PNG/JPG with transparent or torn edges for best look
+               Set to "none" to hide a slot and show the placeholder
+            ═══════════════════════════════════════════════════════ */
+            --art-img-left: none;
+            --art-img-right: none;
+            --art-img-accent: none;
+            /* Examples — uncomment or replace when you add photos:
+            --art-img-left: url("images/art-left.jpg");
+            --art-img-right: url("images/art-right.jpg");
+            --art-img-accent: url("images/art-accent.jpg");
+            */
+            --art-speech-text: "learn · build · ship.";
+            --art-label-1: "say it right";
+            --art-label-2: "stay curious";
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: "IBM Plex Mono", monospace;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            cursor: none;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(ellipse 70% 50% at 50% 30%, rgba(255, 45, 149, 0.08), transparent 55%),
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: auto, 40px 40px, 40px 40px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.6;
+        }
+
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; cursor: none; }
+        input, textarea { font: inherit; }
+
+        .cursor {
+            position: fixed;
+            width: 14px;
+            height: 14px;
+            margin: -7px 0 0 -7px;
+            border-radius: 50%;
+            background: rgba(255, 45, 149, 0.35);
+            border: 1px solid var(--pink);
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, background 0.15s ease;
+            mix-blend-mode: screen;
+        }
+        .cursor.is-down { transform: scale(0.75); background: rgba(245, 255, 61, 0.5); }
+
+        /* NAV */
+        .top-dock {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            width: 100%;
+            height: var(--dock-h);
+            padding: 0 32px;
+            background: rgba(3, 3, 3, 0.92);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .nav-logo {
+            font-family: "Sora", sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+        .logo-dot { color: var(--pink); }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 6px;
+        }
+        .nav-links a {
+            padding: 8px 12px;
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--pink); }
+
+        .nav-badge {
+            width: 36px;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+        }
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--pink);
+            box-shadow: 0 0 14px var(--pink-glow);
+            animation: pulse 2s ease infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        section {
+            position: relative;
+            z-index: 1;
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 100px 24px 80px;
+        }
+
+        /* HERO + COLLAGE ART */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding-top: calc(var(--dock-h) + 48px);
+            padding-bottom: 60px;
+            width: 100%;
+            max-width: none;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .collage-scene {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .collage-torn-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 36px;
+            background: #ececec;
+            clip-path: polygon(
+                0% 0%, 2% 85%, 5% 12%, 8% 78%, 12% 8%, 16% 92%, 20% 18%, 24% 88%,
+                28% 5%, 32% 75%, 36% 22%, 40% 95%, 44% 10%, 48% 80%, 52% 15%,
+                56% 90%, 60% 25%, 64% 70%, 68% 8%, 72% 85%, 76% 20%, 80% 95%,
+                84% 5%, 88% 72%, 92% 30%, 96% 88%, 100% 0%
+            );
+            opacity: 0.9;
+            z-index: 2;
+        }
+
+        .collage-grid-panel {
+            position: absolute;
+            left: 50%;
+            top: 52%;
+            transform: translate(-50%, -50%);
+            width: min(94vw, 1140px);
+            height: min(72vh, 640px);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            background:
+                linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px),
+                rgba(0, 0, 0, 0.35);
+            background-size: 32px 32px, 32px 32px, auto;
+            box-shadow: inset 0 0 80px rgba(0,0,0,0.6);
+        }
+
+        .collage-cutout {
+            position: absolute;
+            background-color: #111;
+            background-image: var(--cutout-img, none);
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(100%) contrast(1.15);
+            box-shadow: 4px 8px 24px rgba(0,0,0,0.5);
+            z-index: 1;
+        }
+        .collage-cutout::after {
+            content: attr(data-placeholder);
+            display: none;
+            position: absolute;
+            inset: 0;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+            font-size: 0.62rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            text-align: center;
+            color: var(--pink);
+            border: 2px dashed rgba(255, 45, 149, 0.45);
+            background: rgba(0,0,0,0.75);
+        }
+        .collage-cutout.is-empty::after { display: flex; }
+        .collage-cutout.is-empty { background-image: none !important; }
+
+        .collage-cutout--left {
+            --cutout-img: var(--art-img-left);
+            left: 2%;
+            top: 28%;
+            width: clamp(120px, 18vw, 220px);
+            height: clamp(160px, 28vh, 300px);
+            clip-path: polygon(8% 2%, 95% 0%, 100% 12%, 92% 88%, 78% 100%, 5% 96%, 0% 70%, 4% 35%);
+            transform: rotate(-4deg);
+        }
+
+        .collage-cutout--right {
+            --cutout-img: var(--art-img-right);
+            right: 3%;
+            top: 22%;
+            width: clamp(140px, 20vw, 260px);
+            height: clamp(180px, 32vh, 340px);
+            clip-path: polygon(5% 5%, 88% 0%, 100% 15%, 96% 92%, 70% 100%, 8% 95%, 0% 60%);
+            transform: rotate(3deg);
+        }
+
+        .collage-cutout--accent {
+            --cutout-img: var(--art-img-accent);
+            left: 14%;
+            bottom: 12%;
+            width: clamp(80px, 12vw, 140px);
+            height: clamp(80px, 12vw, 140px);
+            clip-path: polygon(10% 0%, 90% 5%, 100% 50%, 85% 100%, 15% 95%, 0% 40%);
+            transform: rotate(8deg);
+            opacity: 0.85;
+        }
+
+        .collage-pink-x {
+            position: absolute;
+            font-family: "Permanent Marker", cursive;
+            color: var(--pink);
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            text-shadow: 0 0 20px var(--pink-glow);
+            line-height: 1;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .collage-pink-x--1 { top: 32%; right: 18%; transform: rotate(-12deg); }
+        .collage-pink-x--2 { top: 42%; right: 12%; transform: rotate(8deg); }
+        .collage-cutout--right.is-empty ~ .collage-pink-x { display: none; }
+
+        .hero-scroll { position: relative; z-index: 3; }
+
+        .collage-halftone {
+            position: absolute;
+            left: 8%;
+            bottom: 18%;
+            width: clamp(100px, 14vw, 180px);
+            height: clamp(80px, 12vh, 140px);
+            background-image: radial-gradient(circle, rgba(255,255,255,0.55) 1.2px, transparent 1.2px);
+            background-size: 5px 5px;
+            mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, #000 30%, transparent 72%);
+            opacity: 0.35;
+            transform: rotate(-6deg);
+        }
+
+        .collage-speech {
+            position: absolute;
+            right: 16%;
+            top: 52%;
+            max-width: 140px;
+            padding: 12px 14px;
+            font-family: "Permanent Marker", cursive;
+            font-size: clamp(0.75rem, 1.8vw, 0.95rem);
+            color: #111;
+            background: #f2f2f2;
+            border: 2px solid #111;
+            transform: rotate(-6deg);
+            z-index: 3;
+            line-height: 1.35;
+        }
+        .collage-speech::before {
+            content: "";
+            position: absolute;
+            left: -14px;
+            bottom: 8px;
+            border: 10px solid transparent;
+            border-right-color: #111;
+        }
+        .collage-speech::after {
+            content: "";
+            position: absolute;
+            left: -10px;
+            bottom: 10px;
+            border: 8px solid transparent;
+            border-right-color: #f2f2f2;
+        }
+
+        .collage-smiley {
+            position: absolute;
+            left: 42%;
+            top: 38%;
+            width: 28px;
+            height: 28px;
+            background: var(--yellow);
+            border-radius: 50%;
+            border: 2px solid #111;
+            z-index: 2;
+        }
+        .collage-smiley::before,
+        .collage-smiley::after {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #111;
+            border-radius: 50%;
+            top: 9px;
+        }
+        .collage-smiley::before { left: 8px; }
+        .collage-smiley::after { right: 8px; }
+        .collage-smiley span {
+            position: absolute;
+            left: 50%;
+            bottom: 6px;
+            width: 14px;
+            height: 6px;
+            margin-left: -7px;
+            border-bottom: 2px solid #111;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .collage-squiggle {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 8%;
+            height: 60px;
+            z-index: 1;
+        }
+        .collage-squiggle svg {
+            width: 100%;
+            height: 100%;
+        }
+        .collage-squiggle path {
+            fill: none;
+            stroke: var(--yellow);
+            stroke-width: 2.5;
+            stroke-linecap: round;
+        }
+
+        .collage-float-label {
+            position: absolute;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: rgba(255,255,255,0.55);
+            z-index: 2;
+        }
+        .collage-float-label--1 { left: 38%; top: 30%; }
+        .collage-float-label--2 { right: 28%; top: 68%; }
+
+        .hero-inner {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .hero-main {
+            position: relative;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-left {
+            max-width: 640px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-block;
+            font-size: 0.68rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--yellow);
+            padding: 6px 0;
+            margin-bottom: 16px;
+            border: none;
+            background: none;
+        }
+
+        .hero-name {
+            font-family: "Permanent Marker", cursive;
+            font-size: clamp(3.2rem, 10vw, 6.5rem);
+            font-weight: 400;
+            line-height: 0.92;
+            letter-spacing: 0.02em;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+        .hero-name .line2 {
+            display: block;
+            color: var(--pink);
+            text-shadow:
+                0 0 20px var(--pink-glow),
+                0 0 60px rgba(255, 45, 149, 0.25);
+            transform: rotate(-1deg);
+        }
+
+        .hero-desc {
+            font-size: 0.88rem;
+            color: var(--muted);
+            max-width: 440px;
+            margin-bottom: 28px;
+            line-height: 1.75;
+        }
+
+        .hero-cta { display: flex; flex-wrap: wrap; gap: 12px; }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 28px;
+            background: var(--pink);
+            color: #030303;
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: 0;
+            border: 2px solid var(--pink);
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: transparent;
+            color: var(--pink);
+            box-shadow: 0 0 30px var(--pink-glow);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            padding: 14px 28px;
+            border: 2px solid rgba(255,255,255,0.35);
+            color: var(--text);
+            font-family: "IBM Plex Mono", monospace;
+            font-weight: 500;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-radius: 0;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .btn-ghost:hover {
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+
+        .hero-right {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 8px;
+        }
+
+        .hero-card {
+            padding: 20px 22px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            backdrop-filter: blur(8px);
+        }
+        .hero-card:first-child { border-color: rgba(255, 45, 149, 0.35); border-left: 3px solid var(--pink); }
+        .hero-card:nth-child(2) { border-color: rgba(245, 255, 61, 0.25); border-left: 3px solid var(--yellow); }
+
+        .card-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .card-value {
+            font-family: "Sora", sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+        .card-sub { font-size: 0.72rem; color: var(--muted); }
+
+        .hero-stats { grid-column: 1 / -1; }
+        .stat-box {
+            padding: 24px;
+            text-align: center;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+        .stat-num {
+            font-family: "Sora", sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .stat-lbl {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--muted);
+            margin-top: 4px;
+        }
+
+        .hero-scroll {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            margin-top: 48px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .hero-scroll:hover { color: var(--yellow); }
+        .hero-scroll-arrow {
+            font-size: 1.2rem;
+            color: var(--yellow);
+            animation: bounce 1.5s ease infinite;
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(6px); }
+        }
+
+        /* SECTIONS */
+        .section-header {
+            position: relative;
+            margin-bottom: 12px;
+            padding-top: 8px;
+        }
+        .section-num {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--yellow);
+            margin-bottom: 8px;
+            position: relative;
+            z-index: 1;
+        }
+        .section-title {
+            font-family: "Sora", sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            position: relative;
+            z-index: 1;
+        }
+        .section-title span {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header::before {
+            content: "";
+            position: absolute;
+            left: -28px;
+            top: -12px;
+            width: 110px;
+            height: 110px;
+            border: 1px solid rgba(255, 45, 149, 0.22);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .section-header::after {
+            content: "";
+            position: absolute;
+            left: 42px;
+            top: -22px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--pink);
+            box-shadow: 0 0 20px var(--pink-glow), 0 0 40px rgba(255, 45, 149, 0.25);
+            pointer-events: none;
+        }
+
+        #skills {
+            position: relative;
+        }
+        #skills::after {
+            content: "";
+            position: absolute;
+            right: 8%;
+            top: 72px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--pink);
+            box-shadow: 0 0 18px var(--pink-glow);
+            pointer-events: none;
+            opacity: 0.85;
+        }
+
+        /* SKILLS */
+        .skills-lede {
+            color: var(--muted);
+            font-size: 0.85rem;
+            margin-bottom: 36px;
+            max-width: 520px;
+            line-height: 1.75;
+        }
+
+        .techstack-layout {
+            display: block;
+            max-width: 720px;
+            position: relative;
+        }
+
+        .techstack-panel {
+            position: relative;
+            border: 1px solid rgba(255, 45, 149, 0.28);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            background: rgba(6, 6, 10, 0.92);
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.03) inset,
+                0 24px 48px rgba(0, 0, 0, 0.45),
+                0 0 60px rgba(255, 45, 149, 0.06);
+        }
+        .techstack-panel::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 10px;
+            height: 10px;
+            margin-top: -5px;
+            border-radius: 50%;
+            background: var(--pink);
+            box-shadow: 0 0 16px var(--pink-glow);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .techstack-chrome {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255,255,255,0.03);
+            border-bottom: 1px solid var(--border);
+        }
+        .techstack-traffic { display: flex; gap: 6px; }
+        .techstack-traffic span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .techstack-traffic span:nth-child(1) { background: var(--pink); opacity: 0.95; box-shadow: 0 0 8px rgba(255, 45, 149, 0.5); }
+        .techstack-traffic span:nth-child(2) { background: var(--yellow); opacity: 0.95; }
+        .techstack-traffic span:nth-child(3) { background: #3dd68c; opacity: 0.85; }
+
+        .techstack-filename {
+            flex: 1;
+            text-align: center;
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--muted);
+            font-weight: 500;
+        }
+
+        .techstack-body { padding: 28px 28px 32px; }
+
+        .ts-row { margin-bottom: 26px; }
+        .ts-row:last-child { margin-bottom: 0; }
+
+        .ts-label-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+            font-size: 0.88rem;
+        }
+        .ts-name {
+            font-family: "Sora", sans-serif;
+            font-weight: 600;
+            color: var(--text);
+        }
+        .ts-pct {
+            color: var(--pink);
+            font-weight: 500;
+            letter-spacing: 0.04em;
+        }
+
+        .ts-track {
+            height: 7px;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .ts-fill {
+            height: 100%;
+            width: 0;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--pink), #ff5cad);
+            box-shadow: 0 0 12px rgba(255, 45, 149, 0.35);
+            transition: width 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .ts-fill.is-filled { width: var(--bar-pct); }
+
+        .ts-hint {
+            font-size: 0.68rem;
+            color: var(--muted);
+            margin-top: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        /* EXPERIENCE */
+        #experience .section-header::after {
+            left: 38px;
+            top: -18px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+            margin-top: 40px;
+            max-width: 720px;
+        }
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 10px;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--pink) 0%, var(--yellow) 85%, rgba(245, 255, 61, 0.2) 100%);
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+        .timeline-item:last-child { padding-bottom: 0; }
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -32px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border: 2px solid var(--pink);
+            border-radius: 50%;
+            background: var(--bg);
+            box-shadow: 0 0 14px var(--pink-glow);
+        }
+
+        .timeline-role {
+            font-family: "Sora", sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+        .timeline-org {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+        .timeline-desc {
+            font-size: 0.84rem;
+            color: var(--muted);
+            max-width: 640px;
+            line-height: 1.85;
+        }
+
+        /* ABOUT */
+        #about .section-header::before {
+            width: 130px;
+            height: 130px;
+            left: -36px;
+            top: -16px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 24px;
+            margin-top: 36px;
+            align-items: start;
+        }
+
+        .about-story {
+            position: relative;
+            padding: 36px 36px 36px 44px;
+            background: rgba(255, 255, 255, 0.035);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
+        }
+        .about-story:hover {
+            border-color: rgba(255, 45, 149, 0.32);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+        }
+        .about-story-accent {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--grad-v);
+            box-shadow: 0 0 20px rgba(255, 45, 149, 0.35);
+        }
+        .about-story-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--pink);
+            margin-bottom: 20px;
+        }
+        .about-story-badge::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--pink);
+        }
+
+        .about-text p {
+            font-family: "Sora", sans-serif;
+            font-size: 0.95rem;
+            color: #c4c4cc;
+            line-height: 1.85;
+            margin-bottom: 16px;
+        }
+        .about-text p:last-child { margin-bottom: 0; }
+        .about-text strong { color: var(--text); font-weight: 600; }
+
+        .about-details {
+            padding: 6px 0;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 45, 149, 0.22);
+            border-radius: var(--radius-lg);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+            transition: border-color 0.25s ease;
+        }
+        .about-details:hover {
+            border-color: rgba(255, 45, 149, 0.35);
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            padding: 20px 26px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 0.82rem;
+            transition: background 0.2s ease;
+        }
+        .detail-row:hover {
+            background: rgba(255, 45, 149, 0.04);
+        }
+        .detail-row:last-child { border-bottom: none; }
+        .detail-key {
+            text-transform: uppercase;
+            font-size: 0.62rem;
+            letter-spacing: 0.12em;
+            color: var(--muted);
+        }
+        .detail-val {
+            font-family: "Sora", sans-serif;
+            font-weight: 600;
+            text-align: right;
+            font-size: 0.86rem;
+        }
+        .detail-val.accent { color: var(--pink); }
+
+        /* CONTACT */
+        #contact { max-width: 1100px; }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: start;
+        }
+
+        .contact-intro { position: relative; }
+
+        .contact-kicker {
+            display: inline-block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--yellow);
+            padding: 8px 14px;
+            border: 1px solid rgba(255, 45, 149, 0.4);
+            border-radius: 999px;
+            margin-bottom: 20px;
+        }
+
+        .contact-text {
+            font-family: "Sora", sans-serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 16px;
+        }
+        .contact-text span {
+            background: var(--grad);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .contact-text::after {
+            content: "";
+            display: block;
+            width: 80px;
+            height: 3px;
+            margin-top: 16px;
+            background: var(--grad);
+            border-radius: 2px;
+        }
+
+        .contact-sub {
+            font-size: 0.85rem;
+            color: var(--muted);
+            max-width: 400px;
+            margin-bottom: 28px;
+            padding-left: 16px;
+            border-left: 3px solid transparent;
+            border-image: var(--grad-v) 1;
+            line-height: 1.75;
+        }
+
+        .contact-links { display: flex; flex-direction: column; gap: 10px; }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .contact-link:hover {
+            border-color: rgba(255, 45, 149, 0.35);
+            transform: translateX(4px);
+        }
+
+        .contact-link-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.04);
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
+        .contact-link-icon svg { width: 18px; height: 18px; color: var(--pink); }
+        .contact-link-icon--fb svg { color: #6b9fff; }
+
+        .contact-link-label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--muted);
+        }
+        .contact-link-val { font-size: 0.82rem; margin-top: 2px; }
+
+        .contact-form {
+            padding: 28px;
+            background: rgba(8, 8, 12, 0.6);
+            border: 1px solid rgba(255, 45, 149, 0.3);
+            border-radius: var(--radius-lg);
+        }
+
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--muted);
+            margin-bottom: 8px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            background: rgba(0,0,0,0.35);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--pink);
+            box-shadow: 0 0 0 1px var(--pink-dim);
+        }
+        .form-group textarea { min-height: 140px; resize: vertical; }
+
+        .form-submit {
+            width: 100%;
+            padding: 16px;
+            margin-top: 8px;
+            background: var(--yellow);
+            color: #030303;
+            font-family: "Sora", sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border: none;
+            border-radius: 999px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .form-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 24px rgba(245, 255, 61, 0.45);
+        }
+
+        /* FOOTER */
+        footer {
+            position: relative;
+            z-index: 1;
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 32px 24px 48px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        footer span { color: var(--pink); }
+        .footer-socials { display: flex; gap: 20px; }
+        .footer-socials a:hover { color: var(--pink); }
+
+        /* REVEAL */
+        .reveal {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 960px) {
+            body { cursor: auto; }
+            .cursor { display: none; }
+            button, a { cursor: pointer; }
+
+            .hero-main { grid-template-columns: 1fr; }
+            .hero { min-height: auto; padding-top: 100px; }
+
+            .collage-cutout--left,
+            .collage-cutout--accent { opacity: 0.35; transform: scale(0.85); }
+            .collage-cutout--right { opacity: 0.4; }
+            .collage-pink-x,
+            .collage-speech,
+            .collage-smiley,
+            .collage-float-label { display: none; }
+            .collage-grid-panel { opacity: 0.5; height: 55vh; }
+
+            .about-grid,
+            .contact-grid { grid-template-columns: 1fr; }
+
+            .section-header::before {
+                width: 88px;
+                height: 88px;
+                left: -12px;
+                top: -8px;
+            }
+            #skills::after { display: none; }
+
+            .nav-links { display: none; }
+            .top-dock { justify-content: space-between; padding: 0 16px; }
+        }
+
+        @media (max-width: 520px) {
+            .hero-right { grid-template-columns: 1fr; }
+            .hero-name { font-size: 2.6rem; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor" id="cursor"></div>
+
+    <nav class="top-dock">
+        <a href="#index" class="nav-logo"> John Juaquin G. Pugoy <span class="logo-dot">.</span></a>
+        <ul class="nav-links">
+            <li><a href="#index">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-badge">
+            <div class="status-dot"></div>
+        </div>
+    </nav>
+
+    <section id="index" class="hero">
+        <!--
+          COLLAGE ART — customize your pictures:
+          1. Create a folder: images/
+          2. Add your photos (see filenames below)
+          3. Or edit the --art-img-* paths in :root at the top of <style>
+          Tip: PNG cutouts with transparent backgrounds look best.
+        -->
+        <div class="collage-scene" aria-hidden="true">
+            <div class="collage-torn-top"></div>
+            <div class="collage-grid-panel"></div>
+            <div class="collage-cutout collage-cutout--left" data-placeholder="images/art-left.jpg" data-art="left"></div>
+            <div class="collage-cutout collage-cutout--right" data-placeholder="images/art-right.jpg" data-art="right"></div>
+            <div class="collage-cutout collage-cutout--accent" data-placeholder="images/art-accent.jpg" data-art="accent"></div>
+            <span class="collage-pink-x collage-pink-x--1" aria-hidden="true">✕</span>
+            <span class="collage-pink-x collage-pink-x--2" aria-hidden="true">✕</span>
+            <div class="collage-halftone"></div>
+            <p class="collage-speech" id="collageSpeech"></p>
+            <div class="collage-smiley" aria-hidden="true"><span></span></div>
+            <span class="collage-float-label collage-float-label--1" id="collageLabel1"></span>
+            <span class="collage-float-label collage-float-label--2" id="collageLabel2"></span>
+            <div class="collage-squiggle" aria-hidden="true">
+                <svg viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M0,40 Q150,10 300,35 T600,25 T900,42 T1200,15" />
+                    <path d="M0,52 Q200,28 400,48 T800,38 T1200,50" opacity="0.6" />
+                </svg>
+            </div>
+        </div>
+
+        <div class="hero-inner">
+        <div class="hero-main">
+            <div class="hero-left">
+                <div class="hero-tag">✦ BSIT Student · University of Cebu · 4th Year</div>
+                <h1 class="hero-name">
+                    John Juaquin<br>
+                    <span class="line2">G. Pugoy</span>
+                </h1>
+                <p class="hero-desc">
+                    An Information Technology student focus on web development
+                    and dedicated to creating digital solutions that are accessible, practical, and clean.
+                </p>
+                <div class="hero-cta">
+                    <a href="#skills" class="btn-primary">SkillStack →</a>
+                    <a href="#contact" class="btn-ghost">Get in Touch</a>
+                </div>
+            </div>
+            <div class="hero-right">
+                <div class="hero-card">
+                    <div class="card-label">Current Focus</div>
+                    <div class="card-value">Full-Stack Development</div>
+                    <div class="card-sub">HTML · CSS · JS · Node.js · MySQL</div>
+                </div>
+                <div class="hero-card">
+                    <div class="card-label">Education</div>
+                    <div class="card-value">University of Cebu</div>
+                    <div class="card-sub">BS Information Technology</div>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-box">
+                        <span class="stat-num">BSIT</span>
+                        <div class="stat-lbl">Program</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="#skills" class="hero-scroll" aria-label="Scroll to skills">
+            <span>Let's go</span>
+            <span class="hero-scroll-arrow">↓</span>
+        </a>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="section-header reveal">
+            <span class="section-num">01 —</span>
+            <h2 class="section-title">Skill<span>stack.</span></h2>
+        </div>
+        <p class="skills-lede reveal">Comfort from labs, coursework, and personal builds — read as a live meter.</p>
+        <div class="techstack-layout reveal">
+            <div class="techstack-panel">
+                <div class="techstack-chrome">
+                    <div class="techstack-traffic" aria-hidden="true">
+                        <span></span><span></span><span></span>
+                    </div>
+                    <code class="techstack-filename">STACK.READOUT</code>
+                </div>
+                <div class="techstack-body">
+                    <div class="ts-row">
+                        <div class="ts-label-row">
+                            <span class="ts-name">HTML / CSS</span>
+                            <span class="ts-pct">85%</span>
+                        </div>
+                        <div class="ts-track"><div class="ts-fill" style="--bar-pct: 85%"></div></div>
+                    </div>
+                    <div class="ts-row">
+                        <div class="ts-label-row">
+                            <span class="ts-name">JavaScript</span>
+                            <span class="ts-pct">78%</span>
+                        </div>
+                        <div class="ts-track"><div class="ts-fill" style="--bar-pct: 78%"></div></div>
+                    </div>
+                    <div class="ts-row">
+                        <div class="ts-label-row">
+                            <span class="ts-name">Backend</span>
+                            <span class="ts-pct">67%</span>
+                        </div>
+                        <div class="ts-track"><div class="ts-fill" style="--bar-pct: 67%"></div></div>
+                        <p class="ts-hint">Node.js · Express · Python</p>
+                    </div>
+                    <div class="ts-row">
+                        <div class="ts-label-row">
+                            <span class="ts-name">Data &amp; workflow</span>
+                            <span class="ts-pct">63%</span>
+                        </div>
+                        <div class="ts-track"><div class="ts-fill" style="--bar-pct: 63%"></div></div>
+                        <p class="ts-hint">MySQL · Git · Flowise</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="section-header reveal">
+            <span class="section-num">02 —</span>
+            <h2 class="section-title">Experience &amp; <span>roles.</span></h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-role">Student Web Developer</div>
+                <div class="timeline-org">University of Cebu(Main)</div>
+                <div class="timeline-desc">
+                    created simple websites and web-based solutions for assignments and school projects.
+                    used fundamental web development abilities, such as backend and front-end design
+                    functioning, to provide straightforward, well-structured, and useful digital solutions.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header reveal">
+            <span class="section-num">03 —</span>
+            <h2 class="section-title">About <span>me.</span></h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-story reveal">
+                <div class="about-story-accent" aria-hidden="true"></div>
+                <span class="about-story-badge">Introduction</span>
+                <div class="about-text">
+                    <p>
+                        I am <strong>John Juaquin G. Pugoy</strong>, a 4th year BSIT student at the
+                        <strong>University of Cebu(Main)</strong>. I have a strong interest in web development, particularly
+                        in developing straightforward, practical, and manageable systems and websites.
+                        I like creating digital solutions that are easy to use and seamless.
+                        while keeping designs tidy and well-organized. I'm constantly eager to learn new things.
+                        technology and honing my abilities to create effective, dependable, and useful web applications.
+                    </p>
+                    <p>
+                        As I pursue my academic goals, I develop my abilities via through
+                         <strong>
+                            coding tasks,
+                            projects pertaining to education,
+                            & acquiring new technology on one's own
+                        </strong>. I'm excited to increase my
+                                information and create better, more useful solutions.
+                    </p>
+                </div>
+            </div>
+            <aside class="about-details reveal" aria-label="Profile details">
+                <div class="detail-row">
+                    <span class="detail-key">Full Name</span>
+                    <span class="detail-val">John Juaquin G. Pugoy</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-key">Program</span>
+                    <span class="detail-val">BSIT</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-key">School</span>
+                    <span class="detail-val">University of Cebu(Main)</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-key">Year Level</span>
+                    <span class="detail-val accent">4th Year</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-key">Location</span>
+                    <span class="detail-val">Cebu City, Philippines</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-key">Email</span>
+                    <span class="detail-val">johnkenzpugoy123@gmail.com</span>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-grid">
+            <div class="contact-intro reveal">
+                <span class="contact-kicker">Open for opportunities</span>
+                <div class="contact-text">Let's build something <span>great.</span></div>
+                <p class="contact-sub">
+                    I'm always open to internship opportunities, collaborations,
+                    or just a good conversation about tech. Feel free to reach out anytime.
+                </p>
+                <div class="contact-links">
+                    <a href="mailto:johnkenzpugoy123@gmail.com" class="contact-link">
+                        <div class="contact-link-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4.5" width="19" height="15" rx="2" /><path d="M3.5 6.5 12 12l8.5-5.5" /></svg>
+                        </div>
+                        <div>
+                            <div class="contact-link-label">Email</div>
+                            <div class="contact-link-val">johnkenzpugoy123@gmail.com</div>
+                        </div>
+                    </a>
+                    <a href="https://github.com/XxjohnpugoyxX" class="contact-link" target="_blank" rel="noopener noreferrer">
+                        <div class="contact-link-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.4 7.86 10.93.58.1.79-.25.79-.56 0-.28-.01-1.02-.01-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.32-1.28-1.67-1.28-1.67-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.47.11-3.06 0 0 .96-.31 3.15 1.18.91-.26 1.89-.39 2.86-.39.97 0 1.95.13 2.86.39 2.19-1.49 3.15-1.18 3.15-1.18.62 1.59.23 2.77.11 3.06.73.81 1.18 1.83 1.18 3.09 0 5.42-2.69 6.38-5.25 6.71.41.36.78 1.07.78 2.16 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.56A10.52 10.52 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z" /></svg>
+                        </div>
+                        <div>
+                            <div class="contact-link-label">GitHub</div>
+                            <div class="contact-link-val">github.com/XxjohnpugoyxX</div>
+                        </div>
+                    </a>
+                    <a href="https://www.facebook.com/john.kenz.77" class="contact-link" target="_blank" rel="noopener noreferrer">
+                        <div class="contact-link-icon contact-link-icon--fb" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9.101 23.691v-7.98H7.076v-3.863h2.025v-2.89c0-2.006 1.026-3.15 3.493-3.15 1.986 0 2.799.148 2.799.148v3.08h-1.578c-1.554 0-2.04.967-2.04 1.957v2.855h3.473l-.556 3.863h-2.917V23l-3.674-.309z" /></svg>
+                        </div>
+                        <div>
+                            <div class="contact-link-label">Facebook</div>
+                            <div class="contact-link-val">facebook.com/john.kenz.77</div>
+                        </div>
+                    </a>
+                    <a href="tel:+639975387136" class="contact-link">
+                        <div class="contact-link-icon" aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v2.5a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 3h2.5a2 2 0 0 1 2 1.72c.12.81.32 1.6.6 2.35a2 2 0 0 1-.45 2.11L8.09 10.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.75.28 1.54.48 2.35.6A2 2 0 0 1 22 16.92z" /></svg>
+                        </div>
+                        <div>
+                            <div class="contact-link-label">Phone</div>
+                            <div class="contact-link-val">09975387136</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <form class="contact-form reveal" onsubmit="event.preventDefault(); alert('Thanks! Connect your form to a backend or service like Formspree to send messages.');">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input id="name" type="text" placeholder="John Doe Demachina" />
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input id="email" type="email" placeholder="doey_machine@example.com" />
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" placeholder=""></textarea>
+                </div>
+                <button type="submit" class="form-submit">Send Message →</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-copy">
+            © 2026 <span>John Juaquin G. Pugoy</span> — Built with curiosity.
+        </div>
+        <div class="footer-socials">
+            <a href="https://github.com/XxjohnpugoyxX" target="_blank" rel="noopener">GitHub</a>
+            <a href="https://www.facebook.com/john.kenz.77" target="_blank" rel="noopener">Facebook</a>
+            <a href="mailto:johnkenzpugoy123@gmail.com">Email</a>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+      var root = document.documentElement;
+      var style = getComputedStyle(root);
+      function cssVar(name) {
+        return style.getPropertyValue(name).trim().replace(/^["']|["']$/g, '');
+      }
+      var speech = document.getElementById('collageSpeech');
+      var label1 = document.getElementById('collageLabel1');
+      var label2 = document.getElementById('collageLabel2');
+      if (speech) speech.textContent = cssVar('--art-speech-text');
+      if (label1) label1.textContent = cssVar('--art-label-1');
+      if (label2) label2.textContent = cssVar('--art-label-2');
+
+      function testCollageImage(varName, selector) {
+        var el = document.querySelector(selector);
+        if (!el) return;
+        var raw = style.getPropertyValue(varName).trim();
+        if (!raw || raw === 'none') {
+          el.classList.add('is-empty');
+          return;
+        }
+        var url = raw.replace(/^url\(\s*["']?|["']?\s*\)$/g, '');
+        var probe = new Image();
+        probe.onload = function () { el.classList.remove('is-empty'); };
+        probe.onerror = function () { el.classList.add('is-empty'); };
+        probe.src = url;
+      }
+      testCollageImage('--art-img-left', '.collage-cutout--left');
+      testCollageImage('--art-img-right', '.collage-cutout--right');
+      testCollageImage('--art-img-accent', '.collage-cutout--accent');
+
+      var cursor = document.getElementById('cursor');
+      if (cursor) {
+        document.addEventListener('mousemove', function (e) {
+          cursor.style.left = e.clientX + 'px';
+          cursor.style.top = e.clientY + 'px';
+        });
+        document.addEventListener('mousedown', function () { cursor.classList.add('is-down'); });
+        document.addEventListener('mouseup', function () { cursor.classList.remove('is-down'); });
+      }
+      var reveals = document.querySelectorAll('.reveal');
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry, i) {
+          if (entry.isIntersecting) {
+            setTimeout(function () { entry.target.classList.add('visible'); }, i * 80);
+          }
+        });
+      }, { threshold: 0.1 });
+      reveals.forEach(function (el) { obs.observe(el); });
+      var skillBars = document.querySelectorAll('.ts-fill');
+      var barObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) entry.target.classList.add('is-filled');
+        });
+      }, { threshold: 0.15 });
+      skillBars.forEach(function (bar) { barObs.observe(bar); });
+      var indexSection = document.getElementById('index');
+      var sections = document.querySelectorAll('section[id]:not(#index)');
+      var navLinks = document.querySelectorAll('.nav-links a');
+      function updateNavActive() {
+        var current = '';
+        var y = window.scrollY;
+        var heroH = indexSection ? indexSection.offsetHeight : 0;
+        if (y < heroH - 120) current = 'index';
+        else sections.forEach(function (s) { if (y >= s.offsetTop - 100) current = s.id; });
+        navLinks.forEach(function (a) {
+          a.style.color = a.getAttribute('href') === '#' + current ? 'var(--pink)' : '';
+        });
+      }
+      window.addEventListener('scroll', updateNavActive);
+      window.addEventListener('resize', updateNavActive);
+      updateNavActive();
+    })();
+    </script>
+
+    <script type="module">
+    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js";
+
+    Chatbot.init({
+        chatflowid: "4cdc94d6-a617-463d-bff1-660f8d49f476",
+        apiHost: "https://cloud.flowiseai.com",
+        title: "KenBOT",
+        botMessage: "Hi, I'm KenBOT. Ask me anything about this portfolio website.",
+        chatflowConfig: {
+            promptValues: {
+                systemMessage:
+                    "You are KenBOT, the assistant for John Juaquin G. Pugoy's portfolio website. Only answer questions about this website: sections, skills, projects, experience, education, and contact info. If a question is unrelated, reply: I can only help with questions about this website."
+            }
+        }
+    });
+    </script>
+    <script type="module">
+    import Chatbot from "https://cdn.jsdelivr.net/npm/flowise-embed/dist/web.js"
+    Chatbot.init({
+        chatflowid: "4cdc94d6-a617-463d-bff1-660f8d49f476",
+        apiHost: "https://cloud.flowiseai.com",
+    })
+</script>
+   
+</body>
+</html>
